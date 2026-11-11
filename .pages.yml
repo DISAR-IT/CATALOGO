@@ -1,0 +1,78 @@
+# Pages CMS - DISAR / CONFIGURACION DEL PANEL
+# Se lee automaticamente desde la raiz del repositorio GitHub.
+media:
+  input: images
+  output: /images
+  rename: safe
+  extensions: [png, jpg, jpeg, webp]
+
+content:
+  - name: productos
+    label: Productos del catálogo DISAR
+    type: collection
+    path: content/productos
+    format: json
+    filename: "{id}-{year}{month}{day}{hour}{minute}{second}.json"
+    operations:
+      rename: false
+    view:
+      primary: title
+      fields: [id, title, brand, category, visible]
+      search: [id, title, brand, category]
+      sort: [title, id, category]
+      default:
+        sort: title
+        order: asc
+    fields:
+      - name: id
+        label: Código del producto
+        type: string
+        required: true
+      - name: title
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: category
+        label: Categoría
+        type: select
+        required: true
+        options:
+          values:
+            - Tecnología
+            - Celulares
+            - Laptops
+            - Video y Sonido
+            - Electrodomésticos
+            - Electro Menor
+            - Ferretería
+            - Agroforestal
+            - Mueblería
+            - Varios
+      - name: brand
+        label: Marca
+        type: string
+        required: true
+      - name: price
+        label: Precio (USD, opcional)
+        type: number
+      - name: image
+        label: Fotografía del producto
+        type: image
+        description: Sube un archivo JPG, PNG o WebP. Se guardará en la carpeta images.
+      - name: imageUrl
+        label: Enlace externo de imagen (opcional)
+        type: string
+      - name: desc
+        label: Descripción
+        type: text
+      - name: keywords
+        label: Palabras clave para búsqueda
+        type: string
+      - name: visible
+        label: Mostrar en el catálogo
+        type: boolean
+        default: true
+      - name: order
+        label: Orden original (administración técnica)
+        type: number
+        hidden: true
